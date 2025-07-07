@@ -1,0 +1,127 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:MobileApp.Converters"
+             x:Class="MobileApp.StoragePage"
+             Title="🏥 QUẢN LÝ THIẾT BỊ Y TẾ">
+
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="20">
+
+            <!-- Frame: Nhập kho -->
+            <Frame BackgroundColor="White" CornerRadius="10" Padding="15" HasShadow="True">
+                <StackLayout Spacing="10">
+                    <Label Text="➡️ GHI NHẬN THIẾT BỊ NHẬP KHO"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="MidnightBlue"
+                           HorizontalOptions="Center" />
+                    <Grid RowDefinitions="Auto,Auto,Auto, Auto"
+                          ColumnDefinitions="Auto,*"
+                          RowSpacing="5" ColumnSpacing="10">
+
+                        <Label Text="Thiết bị:" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" />
+                        <Picker Title="Chọn thiết bị"
+                                ItemsSource="{Binding DevicesImport}"
+                                SelectedItem="{Binding SelectedDeviceImport}"
+                                ItemDisplayBinding="{Binding DisplayDeviceNameAndId}"
+                                Grid.Row="0" Grid.Column="1" />
+
+                        <Label Text="Vị trí hiện tại:" Grid.Row="1" Grid.Column="0" VerticalOptions="Center" />
+                        <Entry Text="{Binding ImportRoomFrom}" IsReadOnly="True"
+                               Placeholder="Phòng hiện tại"
+                               Grid.Row="1" Grid.Column="1" />
+
+                        <Label Text="Ngày nhập kho:" Grid.Row="2" Grid.Column="0" VerticalOptions="Center" />
+                        <DatePicker Date="{Binding ImportDate}" Grid.Row="2" Grid.Column="1" />
+
+                        <Button Text="Ghi nhận"
+                                Command="{Binding ImportCommand}"
+                                BackgroundColor="#0078D4" TextColor="White"
+                                Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,10,0,0" />
+                    </Grid>
+                </StackLayout>
+            </Frame>
+
+            <!-- Frame: Xuất kho -->
+            <Frame BackgroundColor="White" CornerRadius="10" Padding="15" HasShadow="True">
+                <StackLayout Spacing="10">
+                    <Label Text="⬅️ GHI NHẬN THIẾT BỊ XUẤT KHO"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="MidnightBlue"
+                           HorizontalOptions="Center" />
+                    <Grid RowDefinitions="Auto,Auto,Auto, Auto"
+                          ColumnDefinitions="Auto,*"
+                          RowSpacing="5" ColumnSpacing="10">
+
+                        <Label Text="Thiết bị:" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" />
+                        <Picker Title="Chọn thiết bị"
+                                ItemsSource="{Binding DevicesExport}"
+                                SelectedItem="{Binding SelectedDeviceExport}"
+                                ItemDisplayBinding="{Binding DisplayDeviceNameAndId}"
+                                Grid.Row="0" Grid.Column="1" />
+
+                        <Label Text="Phòng sau khi xuất:" Grid.Row="1" Grid.Column="0" VerticalOptions="Center" />
+                        <Picker Title="Chọn phòng"
+                                ItemsSource="{Binding RoomList}"
+                                SelectedItem="{Binding SelectedExportRoom}"
+                                ItemDisplayBinding="{Binding DisplayRoomName}"
+                                Grid.Row="1" Grid.Column="1" />
+
+                        <Label Text="Ngày xuất kho:" Grid.Row="2" Grid.Column="0" VerticalOptions="Center" />
+                        <DatePicker Date="{Binding ExportDate}" Grid.Row="2" Grid.Column="1" />
+
+                        <Button Text="Ghi nhận"
+                                Command="{Binding ExportCommand}"
+                                BackgroundColor="#0078D4" TextColor="White"
+                                Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,10,0,0" />
+                    </Grid>
+                </StackLayout>
+            </Frame>
+
+            <!-- Frame: Chuyển thiết bị -->
+            <Frame BackgroundColor="White" CornerRadius="10" Padding="15" HasShadow="True">
+                <StackLayout Spacing="10">
+                    <Label Text="🔄 ĐIỀU CHUYỂN THIẾT BỊ GIỮA CÁC PHÒNG"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="MidnightBlue"
+                           HorizontalOptions="Center" />
+                    <Grid RowDefinitions="Auto,Auto,Auto,Auto, Auto"
+                          ColumnDefinitions="Auto,*"
+                          RowSpacing="5" ColumnSpacing="10">
+
+                        <Label Text="Thiết bị:" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" />
+                        <Picker Title="Chọn thiết bị"
+                                ItemsSource="{Binding DevicesAll}"
+                                SelectedItem="{Binding SelectedDeviceTransfer}"
+                                ItemDisplayBinding="{Binding DisplayDeviceNameAndId}"
+                                Grid.Row="0" Grid.Column="1" />
+
+                        <Label Text="Phòng hiện tại:" Grid.Row="1" Grid.Column="0" VerticalOptions="Center" />
+                        <Entry Text="{Binding TransferRoomFrom}" IsReadOnly="True"
+                               Placeholder="Phòng hiện tại"
+                               Grid.Row="1" Grid.Column="1" />
+
+                        <Label Text="Chuyển đến:" Grid.Row="2" Grid.Column="0" VerticalOptions="Center" />
+                        <Picker Title="Phòng đích"
+                                ItemsSource="{Binding RoomList}"
+                                SelectedItem="{Binding SelectedRoomTo}"
+                                ItemDisplayBinding="{Binding DisplayRoomName}"
+                                Grid.Row="2" Grid.Column="1" />
+
+                        <Label Text="Ngày chuyển:" Grid.Row="3" Grid.Column="0" VerticalOptions="Center" />
+                        <DatePicker Date="{Binding TransferDate}" Grid.Row="3" Grid.Column="1" />
+
+                        <Button Text="Chuyển thiết bị"
+                                Command="{Binding TransferCommand}"
+                                BackgroundColor="#0078D4" TextColor="White"
+                                Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,10,0,0" />
+                    </Grid>
+                </StackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

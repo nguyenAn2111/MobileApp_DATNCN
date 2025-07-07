@@ -1,0 +1,118 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileApp.AddDevicePage"
+             Title="THÊM THIẾT BỊ">
+    <ScrollView>
+        <VerticalStackLayout Padding="15" Spacing="20">
+            
+            <Label Text="Thông tin chung" TextColor="CornflowerBlue" FontAttributes="Bold" FontSize="18"/>
+            
+            <Label Text="Tên thiết bị" FontAttributes="Bold"/>
+            <Frame CornerRadius="10" Padding="5" BorderColor="DodgerBlue" HasShadow="False">
+                <Entry x:Name="entryDeviceName" BackgroundColor="Transparent"/>
+            </Frame>
+            
+            <Label Text="Mã seri thiết bị" FontAttributes="Bold"/>
+            <Frame CornerRadius="10" Padding="5" BorderColor="DodgerBlue" HasShadow="False">
+                <Entry x:Name="entrySeri" BackgroundColor="Transparent"/>
+            </Frame>
+            
+            <Label Text="Tên nhà sản xuất" FontAttributes="Bold"/>
+            <Frame CornerRadius="10" Padding="5" BorderColor="DodgerBlue" HasShadow="False">
+                <Entry x:Name="entryManufacturer" BackgroundColor="Transparent"/>
+            </Frame>
+
+            <Label Text="Loại thiết bị" FontAttributes="Bold"/>
+            <Frame CornerRadius="10" Padding="5" BorderColor="DodgerBlue" HasShadow="False">
+                <Entry Placeholder="Nhập mã loại thiết bị" x:Name="entryDeviceType" BackgroundColor="Transparent"/>
+            </Frame>
+
+            <Label Text="Thuộc nhóm" FontAttributes="Bold"/>
+            <Frame CornerRadius="10" Padding="5" BorderColor="DodgerBlue" HasShadow="False">
+                <Picker Title="Chọn nhóm thiết bị" x:Name="pickerGroup" BackgroundColor="Transparent">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Thiết bị chẩn đoán</x:String>
+                            <x:String>Thiết bị điều trị</x:String>
+                            <x:String>Dụng cụ phẫu thuật và nội soi</x:String>
+                            <x:String>Thiết bị xét nghiệm</x:String>
+                            <x:String>Thiết bị hỗ trợ bệnh nhân</x:String>
+                            <x:String>Thiết bị kiểm soát môi trường và khử khuẩn</x:String>
+                            <x:String>Thiết bị công nghệ và CNTT y tế</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+            </Frame>
+
+
+            <Label Text="Thông tin kho" TextColor="CornflowerBlue" FontAttributes="Bold" FontSize="18"/>
+            
+            <Label Text="Ngày nhập về" FontAttributes="Bold"/>
+            <Frame CornerRadius="10" Padding="5" BorderColor="DodgerBlue" HasShadow="False">
+                <DatePicker x:Name="dateReceived" Format="dd/MM/yyyy" />
+            </Frame>
+
+            <Label Text="Tình trạng khi nhập về" FontAttributes="Bold"/>
+            <Frame CornerRadius="10" Padding="5" BorderColor="DodgerBlue" HasShadow="False">
+                <Picker x:Name="pickerCondition" Title="Chọn tình trạng">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Mua mới</x:String>
+                            <x:String>Mua cũ</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+            </Frame>
+            <Label Text="Giá nhập về" FontAttributes="Bold"/>
+            <Frame CornerRadius="10" Padding="5" BorderColor="DodgerBlue"  HasShadow="False">
+                <Entry Placeholder="Giá sản phẩm/đơn vị" Keyboard="Numeric" x:Name="entryPrice"/>
+            </Frame>
+
+            <Label Text="Thông tin sử dụng" TextColor="CornflowerBlue" FontAttributes="Bold" FontSize="18"/>
+
+            <Label Text="Khoa tiếp nhận" FontAttributes="Bold"/>
+            <Frame CornerRadius="10" Padding="5" BorderColor="DodgerBlue" HasShadow="False">
+                <Picker x:Name="pickerRoomType"
+            Title="Chọn khoa"
+            BackgroundColor="Transparent"
+            SelectedIndexChanged="pickerRoomType_SelectedIndexChanged"/>
+            </Frame>
+
+            <Label Text="Vị trí tiếp nhận" FontAttributes="Bold"/>
+            <Frame CornerRadius="10" Padding="5" BorderColor="DodgerBlue" HasShadow="False">
+                <Picker
+        x:Name="pickerRoom"
+        Title="Chọn vị trí"
+        ItemDisplayBinding="{Binding room_name}"
+                    BackgroundColor="Transparent" />
+            </Frame>
+
+
+            <Label Text="Thông tin bảo trì" TextColor="CornflowerBlue" FontAttributes="Bold" FontSize="18"/>
+            <Label Text="Thời hạn bảo trì" FontAttributes="Bold"/>
+            <Frame CornerRadius="10" Padding="5" BorderColor="DodgerBlue" HasShadow="False">
+                <Entry Placeholder="Tháng bảo trì / lần" Keyboard="Numeric" x:Name="entryMaintenanceCycle"/>
+            </Frame>
+            
+            <Label Text="Hạn bảo trì bắt đầu từ ngày" FontAttributes="Bold"/>
+            <Frame CornerRadius="10" Padding="5" BorderColor="DodgerBlue" HasShadow="False">
+                <DatePicker x:Name="dateMaintenanceStart" Format="dd/MM/yyyy"/>
+            </Frame>
+            <!--<Label Text="Thông tin hợp đồng" FontAttributes="Bold" FontSize="18"/>
+            <Picker Title="Loại hợp đồng" x:Name="pickerContract">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Mua bán</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>-->
+            <!-- Tải file: Tạm thời chưa hỗ trợ upload file trên mobile -->
+            <Label Text="Mô tả" TextColor="CornflowerBlue" FontAttributes="Bold" FontSize="18"/>
+            <Frame CornerRadius="10" Padding="5" BorderColor="DodgerBlue" HasShadow="False">
+                <Editor AutoSize="TextChanges" x:Name="entryNote"/>
+            </Frame>
+            
+            <Button Text="Thêm thiết bị" BackgroundColor="MidnightBlue" Clicked="OnSaveClicked"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

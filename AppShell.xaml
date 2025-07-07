@@ -1,0 +1,23 @@
+<Shell
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:MobileApp"
+    x:Class="MobileApp.AppShell">
+
+    <FlyoutItem Title="Thiết bị" FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent Title="📋 Quản lý danh sách thiết bị" ContentTemplate="{DataTemplate pages:MainPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="⚙️ Quản lý bảo trì">
+        <ShellContent ContentTemplate="{DataTemplate pages:MaintainPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="🛠 Quản lý sửa chữa">
+        <ShellContent ContentTemplate="{DataTemplate pages:RepairPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="↔️ Quản lý điều chuyển thiết bị">
+        <ShellContent ContentTemplate="{DataTemplate pages:StoragePage}" />
+    </FlyoutItem>
+
+</Shell>

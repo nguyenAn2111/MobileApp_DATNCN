@@ -1,0 +1,156 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:MobileApp.Converters"
+             x:Class="MobileApp.RepairPage"
+             Title="🏥 QUẢN LÝ THIẾT BỊ Y TẾ">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:DateFormatConverter x:Key="DateFormatConverter" />
+            <converters:StatusToColorConverter x:Key="StatusToColorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <StackLayout Padding="15" Spacing="20">
+
+            <Frame BackgroundColor="White" CornerRadius="10" Padding="10" HasShadow="True">
+                <StackLayout Spacing="10">
+                    <Label Text="⚙️ DANH SÁCH BẢO TRÌ"
+                           TextColor="MidnightBlue"
+                           FontSize="22" FontAttributes="Bold" HorizontalOptions="Center" />
+
+                    <CollectionView ItemsSource="{Binding Repairs}">
+                        <CollectionView.Header>
+                            <Grid ColumnDefinitions="1.45*,1,2*,1,1.2*,1,1.3*,1,1.5*,1,1.5*,1"
+                          
+                          BackgroundColor="#0078D4" 
+                          HeightRequest="40">
+                                <Label Text="Mã ID" TextColor="White" FontAttributes="Bold"  TextTransform="Uppercase"
+                               VerticalOptions="Center" HorizontalOptions="Center" Grid.Column="0"/>
+                                <BoxView Grid.Column="1" WidthRequest="1" BackgroundColor="White" />
+
+                                <Label Text="Tên thiết bị" TextColor="White" FontAttributes="Bold"  TextTransform="Uppercase"
+                               VerticalOptions="Center" HorizontalOptions="Center" Grid.Column="2"/>
+                                <BoxView Grid.Column="3" WidthRequest="1" BackgroundColor="White" />
+
+                                <Label Text="Ngày hỏng" TextColor="White" FontAttributes="Bold"  TextTransform="Uppercase"
+                               VerticalOptions="Center" HorizontalOptions="Center" Grid.Column="4"/>
+                                <BoxView Grid.Column="5" WidthRequest="1" BackgroundColor="White" />
+
+                                <Label Text="Ngày sửa chữa" TextColor="White" FontAttributes="Bold"  TextTransform="Uppercase"
+        VerticalOptions="Center"  HorizontalOptions="Center" Grid.Column="6"/>
+                                <BoxView Grid.Column="7" WidthRequest="1" BackgroundColor="White" />
+
+                                <Label Text="Vị trí" TextColor="White" FontAttributes="Bold"  TextTransform="Uppercase"
+                               VerticalOptions="Center" HorizontalOptions="Center" Grid.Column="8"/>
+                                <BoxView Grid.Column="9" WidthRequest="1" BackgroundColor="White" />
+
+                                <Label Text="Tình trạng" TextColor="White" FontAttributes="Bold"  TextTransform="Uppercase"
+                               VerticalOptions="Center" HorizontalOptions="Center" Grid.Column="10"/>
+                            </Grid>
+                        </CollectionView.Header>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame BorderColor="DeepSkyBlue" Margin="0.5" Padding="0">
+                                    <Grid ColumnDefinitions="1.4*,1,2*,1,1.2*,1,1.3*,1,1.5*,1,1.45*,1" 
+                                  Padding="2" 
+                                  HeightRequest="60">
+
+                                        <Label Text="{Binding FK_device_id}" VerticalOptions="Center" Grid.Column="0" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextTransform="Uppercase" />
+                                        <BoxView Grid.Column="1" WidthRequest="1" BackgroundColor="DeepSkyBlue" />
+
+                                        <Label Text="{Binding device_name}" VerticalOptions="Center" Grid.Column="2" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+                                        <BoxView Grid.Column="3" WidthRequest="1" BackgroundColor="DeepSkyBlue" />
+
+                                        <Label Text="{Binding repair_broken, Converter={StaticResource DateFormatConverter}}" 
+     HorizontalOptions="Center" HorizontalTextAlignment="Center"  VerticalOptions="Center" Grid.Column="4" />
+                                        <BoxView Grid.Column="5" WidthRequest="1" BackgroundColor="DeepSkyBlue" />
+
+                                        <!-- ✅ Đã sửa: thừa dấu }, thêm converter -->
+                                        <Label Text="{Binding repair_date, Converter={StaticResource DateFormatConverter}}" 
+                                     HorizontalOptions="Center" HorizontalTextAlignment="Center"  VerticalOptions="Center" Grid.Column="6" />
+                                        <BoxView Grid.Column="7" WidthRequest="1" BackgroundColor="DeepSkyBlue" />
+
+                                        <Label Text="{Binding room_name}" VerticalOptions="Center" Grid.Column="8" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+                                        <BoxView Grid.Column="9" WidthRequest="1" BackgroundColor="DeepSkyBlue" />
+
+                                        <!-- ✅ Sửa: dùng converter để đổi status thành màu -->
+                                        <Label Text="{Binding status_name}" VerticalOptions="Center" Grid.Column="10" HorizontalOptions="Center" HorizontalTextAlignment="Center"
+                                       BackgroundColor="{Binding status_name, Converter={StaticResource StatusToColorConverter}}"
+                                            TextColor="White" Padding="5" />
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </Frame>
+
+
+            <!-- VÙNG 2: Form tạo yêu cầu sửa chữa -->
+            <Frame BackgroundColor="White" CornerRadius="10" Padding="15" HasShadow="True">
+                <StackLayout Spacing="10">
+                    <Label Text="📝 TẠO YÊU CẦU SỬA CHỮA" 
+               FontSize="20" 
+               FontAttributes="Bold" 
+               TextColor="MidnightBlue"
+               HorizontalOptions="Center" />
+                    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto" 
+              ColumnDefinitions="Auto,*" 
+              RowSpacing="5" 
+              ColumnSpacing="10">
+
+                        <Label Text="Thiết bị cần sửa:" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" />
+                        <Picker Title="Chọn thiết bị"
+                    ItemsSource="{Binding DeviceList}"
+                    ItemDisplayBinding="{Binding DisplayDeviceNameAndId}" 
+                    SelectedItem="{Binding SelectedDevice}"
+                    Grid.Row="0" Grid.Column="1" />
+
+                        <Label Text="Mức độ ưu tiên:" Grid.Row="1" Grid.Column="0" VerticalOptions="Center" />
+                        <Picker Title="Chọn mức độ"
+                    SelectedItem="{Binding Priority}" 
+                    Grid.Row="1" Grid.Column="1">
+                            <Picker.Items>
+                                <x:String>1 - Cao</x:String>
+                                <x:String>2 - Trung bình</x:String>
+                                <x:String>3 - Thấp</x:String>
+                            </Picker.Items>
+                        </Picker>
+
+                        <Label Text="Chi phí sửa chữa:" Grid.Row="2" Grid.Column="0" VerticalOptions="Center" />
+                        <Entry Text="{Binding RepairCost}" 
+                   Placeholder="Nhập số tiền..." 
+                   Keyboard="Numeric" 
+                   Grid.Row="2" Grid.Column="1" />
+
+                        <Label Text="Ngày phát hiện hỏng:" Grid.Row="3" Grid.Column="0" VerticalOptions="Center" />
+                        <DatePicker Date="{Binding BrokenDate}" Grid.Row="3" Grid.Column="1" />
+
+                        <Label Text="Ngày sửa chữa (dự kiến):" Grid.Row="4" Grid.Column="0" VerticalOptions="Center" />
+                        <DatePicker Date="{Binding RepairDate}" Grid.Row="4" Grid.Column="1" />
+
+                        <Label Text="Mô tả lỗi:" Grid.Row="5" Grid.Column="0" VerticalOptions="Start" />
+                        <Editor Text="{Binding Note}" 
+                    AutoSize="TextChanges" 
+                    Placeholder="Nhập mô tả lỗi..." 
+                    Grid.Row="5" Grid.Column="1" 
+                    HeightRequest="50" />
+
+                        <Button Text="Gửi yêu cầu sửa chữa" 
+                    Command="{Binding SaveRepairCommand}" 
+                    BackgroundColor="#0078D4" 
+                    TextColor="White" 
+                    CornerRadius="5"
+                    Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
+                    Margin="0,10,0,0" />
+                    </Grid>
+                </StackLayout>
+            </Frame>
+
+           
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
